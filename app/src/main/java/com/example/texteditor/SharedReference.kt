@@ -1,6 +1,7 @@
 package com.example.texteditor
 
 import android.content.Context
+import android.text.Editable
 
 class SharedReference(ctx: Context) {
     val data = ctx.getSharedPreferences("SAVED", Context.MODE_PRIVATE)

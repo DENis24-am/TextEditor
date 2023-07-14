@@ -38,6 +38,11 @@ class MainActivity : ComponentActivity() {
         //Toast.makeText(this, "$counter + $text", Toast.LENGTH_LONG).show()
     }
 
+    override fun onAttachedToWindow() {
+        recreate()
+        super.onAttachedToWindow()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //return super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -48,6 +53,7 @@ class MainActivity : ComponentActivity() {
         var list = findViewById<ListView>(R.id.list)
         var arr = data.getAll()
 
+        arrayNames.add("${arr.size}")
         for (i in arr.keys) {
             arrayNames.add("${i}")
         }
