@@ -1,40 +1,72 @@
 package com.example.texteditor
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.texteditor.ui.theme.TextEditorTheme
 
 class MainActivity : ComponentActivity() {
+
+    final val NAMECOUNT = "COUNTOFITEMSID"
+    lateinit var data: SharedReference
+    var counter = 0
+    var text = ""
+
+    var arrayNames = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            TextEditorTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
-            }
-        }
+        setContentView(R.layout.activity_main)
+
+        data = SharedReference(this)
+
+//        if(data.getText(NAMECOUNT)?.length != 0) {
+//            var textFormat = data.getText(NAMECOUNT)
+//            text = textFormat!!
+//            if(text.length>0) {
+//                counter = textFormat?.toInt()!!
+//            }
+//        } else {
+//            data.save(NAMECOUNT, "$counter")
+//        }
+        loadItems()
+
+        //test
+        //Toast.makeText(this, "$counter + $text", Toast.LENGTH_LONG).show()
     }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //return super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TextEditorTheme {
-        Greeting("Android")
+    fun loadItems() {
+        var list = findViewById<ListView>(R.id.list)
+        var arr = data.getAll()
+
+        for (i in arr.keys) {
+            arrayNames.add("${i}")
+        }
+
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayNames)
+        list.adapter = adapter
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.newelem -> {
+                var i: Intent = Intent(this, CreateElement::class.java)
+                this.recreate()
+                startActivity(i)
+                return true
+            }   R.id.exit -> {
+                finish()
+                return true
+            } else -> return super.onOptionsItemSelected(item)
+        }
     }
 }

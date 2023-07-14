@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.TextEditor" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.TextEditor" parent="android:Theme.Material.Light.DarkActionBar">
         <item name="android:statusBarColor">@color/purple_700</item>
     </style>
+    <style name="Theme.TextEditor.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.TextEditor.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>
