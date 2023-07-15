@@ -3,4 +3,7 @@
 
     <item android:title="Save" android:id="@+id/save"/>
     <item android:title="Back" android:id="@+id/back"/>
+    <item android:title="Save to file" android:id="@+id/savefile"/>
+    <item android:title="Open file" android:id="@+id/openfile"/>
+    <item android:title="Delete" android:id="@+id/del"/>
 </menu>

@@ -5,12 +5,11 @@ import android.text.Editable
 
 class SharedReference(ctx: Context) {
     val data = ctx.getSharedPreferences("SAVED", Context.MODE_PRIVATE)
-    lateinit var arr: Map<String, *>
-    public fun save(name: String, text: String) {
+    fun save(name: String, text: String) {
         data.edit().putString(name, text).apply()
     }
 
-    public fun getText(name: String): String? {
+    fun getText(name: String): String? {
         return data.getString(name, "")
     }
 
@@ -18,8 +17,8 @@ class SharedReference(ctx: Context) {
         return data.all
     }
 
-    public fun clear(name: String) {
-        data.edit().remove(name)
+    fun clear(name: String) {
+        data.edit().remove(name).commit()
     }
 }
 
